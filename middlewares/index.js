@@ -55,7 +55,27 @@ function validateProject(req, res, next) {
   return next();
 }
 
+async function validateAction(req, res, next) {
+  if (!Object.keys(req.body).length) {
+    return res.status(400).send({
+      message: 'missing project data',
+    });
+  }
+  if (!req.body.description) {
+    return res.status(400).send({
+      message: 'missing required description field',
+    });
+  }
+  if (!req.body.notes) {
+    return res.status(400).send({
+      message: 'missing required notes field',
+    });
+  }
+  return next();
+}
+
 module.exports = {
   validateId,
   validateProject,
+  validateAction,
 };

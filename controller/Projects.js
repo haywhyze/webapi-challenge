@@ -1,4 +1,5 @@
 const projectModel = require('../data/helpers/projectModel');
+const actionModel = require('../data/helpers/actionModel');
 
 class Projects {
   static async create(req, res) {
@@ -83,6 +84,24 @@ class Projects {
       console.log(error);
       return res.status(500).json({
         error: 'The project could not be removed',
+      });
+    }
+  }
+
+  static async createAction(req, res) {
+    const newAction = {
+      description: req.body.description,
+      notes: req.body.notes,
+      project_id: req.project.id,
+    };
+    try {
+      const newActionId = await actionModel.insert(newAction);
+      const newActionData = await actionModel.get(newActionId.id);
+      return res.status(201).json(newActionData);
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        error: 'There was an error while saving the project to the database',
       });
     }
   }
