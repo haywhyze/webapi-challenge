@@ -57,7 +57,6 @@ class Projects {
     };
     if (req.body.completed === 'true') updatedProject.completed = true;
     try {
-      console.log(req.project.id, updatedProject);
       const updateResponse = await projectModel.update(req.project.id, updatedProject);
       if (updateResponse) return res.status(200).json(updateResponse);
       throw new Error();
@@ -102,6 +101,25 @@ class Projects {
       console.log(error);
       return res.status(500).json({
         error: 'There was an error while saving the project to the database',
+      });
+    }
+  }
+
+  static async updateAction(req, res) {
+    const updatedAction = {
+      description: req.body.description,
+      notes: req.body.notes,
+      project_id: req.project.id,
+    };
+    if (req.body.completed === 'true') updatedAction.completed = true;
+    try {
+      const updateResponse = await actionModel.update(req.action.id, updatedAction);
+      if (updateResponse) return res.status(200).json(updateResponse);
+      throw new Error();
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        error: 'There was an error while saving the user to the database',
       });
     }
   }

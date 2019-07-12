@@ -54,6 +54,26 @@ function validateProject(req, res, next) {
   return next();
 }
 
+async function validateActionId(req, res, next) {
+  const actionId = Number(req.params.actionId);
+  if (Number.isNaN(actionId) || actionId % 1 !== 0 || actionId < 0) {
+    return res.status(400).send({
+      message: 'invalid action id provided',
+    });
+  }
+  try {
+    const data = await actionModel.get(actionId);
+    if (data) {
+      req.action = data;
+    }
+  } catch (error) {
+    return res.status(404).send({
+      message: 'action id provided does not exist',
+    });
+  }
+  return next();
+}
+
 async function validateAction(req, res, next) {
   if (!Object.keys(req.body).length) {
     return res.status(400).send({
@@ -77,4 +97,5 @@ module.exports = {
   validateId,
   validateProject,
   validateAction,
+  validateActionId,
 };

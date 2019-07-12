@@ -16,6 +16,8 @@ projects.get('/:id/actions', middlewares.validateId, ProjectsController.getActio
 
 projects.put('/:id', middlewares.validateId, ProjectsController.update);
 
+projects.put('/:id/actions/:actionId', middlewares.validateId, middlewares.validateActionId, ProjectsController.updateAction);
+
 projects.delete('/:id', middlewares.validateId, ProjectsController.remove);
 
 module.exports = projects;
