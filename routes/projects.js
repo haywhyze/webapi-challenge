@@ -4,7 +4,7 @@ const ProjectsController = require('../controller/Projects');
 
 const projects = express.Router();
 
-projects.post('/');
+projects.post('/', middlewares.validateProject, ProjectsController.create);
 
 projects.get('/', ProjectsController.getAll);
 
