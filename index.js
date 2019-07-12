@@ -15,6 +15,7 @@ Go code!
 
 const express = require('express');
 const helmet = require('helmet');
+const routes = require('./routes');
 
 const app = express();
 
@@ -25,6 +26,8 @@ app.use(express.urlencoded({ extended: true }));
 app.get('/', (req, res) => {
   res.send('<h2>Welcome to Lambda Schools</h2>');
 });
+
+app.use('/api', routes);
 
 app.all('*', (req, res) => {
   res.status(404).send({
