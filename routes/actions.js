@@ -10,6 +10,6 @@ actions.get('/:id');
 
 actions.put('/:id');
 
-actions.delete('/:id');
+actions.delete('/:id', middlewares.validateId, ActionsController.remove);
 
 module.exports = actions;

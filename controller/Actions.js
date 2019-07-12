@@ -14,6 +14,25 @@ class Actions {
       });
     }
   }
+
+  static async remove(req, res) {
+    try {
+      const deleteResponse = await actionModel.remove(req.action.id);
+      if (deleteResponse === 1) {
+        return res.status(200).json({
+          message: 'Action deleted successfully',
+        });
+      }
+      return res.status(500).json({
+        message: 'Server Error',
+      });
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        error: 'The action could not be removed',
+      });
+    }
+  }
 }
 
 module.exports = Actions;

@@ -18,7 +18,7 @@ async function validateId(req, res, next) {
     }
     const data = await db.get(id);
     if (!data) {
-      return res.status(400).send({
+      return res.status(404).send({
         message: `${endpoint} id provided does not exist`,
       });
     }
@@ -28,9 +28,8 @@ async function validateId(req, res, next) {
       req.project = data;
     }
   } catch (error) {
-    console.log(error);
-    return res.status(500).send({
-      error: 'The information could not be retrieved.',
+    return res.status(404).send({
+      error: `${endpoint} id provided does not exist`,
     });
   }
   return next();
