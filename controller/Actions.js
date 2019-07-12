@@ -15,6 +15,10 @@ class Actions {
     }
   }
 
+  static async getOne(req, res) {
+    return res.status(200).send(req.action);
+  }
+
   static async remove(req, res) {
     try {
       const deleteResponse = await actionModel.remove(req.action.id);
