@@ -13,7 +13,7 @@ class Projects {
     } catch (error) {
       console.log(error);
       return res.status(500).json({
-        error: 'There was an error while saving the user to the database',
+        error: 'There was an error while saving the project to the database',
       });
     }
   }
@@ -33,6 +33,26 @@ class Projects {
 
   static async getOne(req, res) {
     return res.status(200).send(req.project);
+  }
+
+  static async update(req, res) {
+    const updatedProject = {
+      name: req.body.name,
+      description: req.body.description,
+      completed: false,
+    };
+    if (req.body.completed === 'true') updatedProject.completed = true;
+    try {
+      console.log(req.project.id, updatedProject);
+      const updateResponse = await projectModel.update(req.project.id, updatedProject);
+      if (updateResponse) return res.status(200).json(updateResponse);
+      throw new Error();
+    } catch (error) {
+      console.log(error);
+      return res.status(500).json({
+        error: 'There was an error while saving the user to the database',
+      });
+    }
   }
 
   static async remove(req, res) {

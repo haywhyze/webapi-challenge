@@ -10,7 +10,7 @@ projects.get('/', ProjectsController.getAll);
 
 projects.get('/:id', middlewares.validateId, ProjectsController.getOne);
 
-projects.put('/:id');
+projects.put('/:id', middlewares.validateId, ProjectsController.update);
 
 projects.delete('/:id', middlewares.validateId, ProjectsController.remove);
 
