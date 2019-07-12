@@ -12,6 +12,6 @@ projects.get('/:id', middlewares.validateId, ProjectsController.getOne);
 
 projects.put('/:id');
 
-projects.delete('/:id');
+projects.delete('/:id', middlewares.validateId, ProjectsController.remove);
 
 module.exports = projects;
